@@ -2,7 +2,7 @@
 
 ### Building Hardware with AI Agents Against a One-to-One, No-Mocks Simulation
 
-📄 **[Read the full paper (PDF)](./simulation_driven_development.pdf)**
+**[Read the full paper (PDF)](./simulation_driven_development.pdf)**
 
 ---
 
@@ -36,14 +36,7 @@ runs, the more defects are caught before they ever reach silicon.
 
 ---
 
-## Main figures
-
-### The lossy-handoff model and its countermeasures
-Every connection between two models compresses information. Four
-countermeasures — durable written specs, the review-key gate, redundant
-ensembles, and files small enough to fit whole in context — contain the loss.
-
-![Handoffs as lossy compression](./Figures/FIG-HANDOFF-COMPRESSION_render-1.png)
+## Figures
 
 ### The agent hierarchy
 Not a flat pool of agents but a managed tree: the human-owned architecture at
@@ -51,27 +44,6 @@ the root, an orchestrator that plans and delegates, and dedicated teams beneath
 it. Every agent has a single, narrow responsibility.
 
 ![The agent hierarchy](./Figures/FIG-AGENT-TREE_render-1.png)
-
-### The review-key gate
-A producing agent cannot advance on its own claim of completion. Work passes at
-least three independent AI review stages and a final human stage; only a
-reviewer issues the key that unlocks the next stage.
-
-![The review-key gate](./Figures/FIG-KEY-SYSTEM_render-1.png)
-
-### The software simulation loop
-Build agents produce; the simulation runs one-to-one with no mocks; every frame
-is dumped and extracted; a report drives a PASS or REWORK decision. A parallel
-lane exercises the UI by visual capture and input injection.
-
-![The software simulation loop](./Figures/FIG-SIM-PIPELINE_render-1.png)
-
-### Top-level module map of the simulator
-Frontend, backend, the simulation core, the compiled C side loaded as a shared
-library, the true one-to-one bus path, and the dump-and-extract store where
-every frame is kept.
-
-![Top-level simulator module map](./Figures/FIG-SYSTEM-OVERVIEW_render-1.png)
 
 ### The on-device hardware map
 A control microcontroller drives the device under test (buttons, boot, reset,
@@ -86,23 +58,6 @@ What is controlled, observed, recovered, built, flashed, and reviewed on the
 device side — and which role owns each.
 
 ![On-device responsibility tree](./Figures/FIG-HW-TREE_render-1.png)
-
----
-
-## Supplementary figures
-
-The remaining figures (from the companion manual) drill into individual
-mechanisms and are kept in [`Figures/`](./Figures):
-
-| Figure | What it shows |
-| --- | --- |
-| `FIG-SYSTEM-DRILLDOWN-A` | The no-mocks path: Python → ctypes FFI → real compiled C driver → 1:1 SPI transaction model. A Python mock is forbidden. |
-| `FIG-SYSTEM-DRILLDOWN-B` | The dump-and-extract store: the raw dump is locked and retained; extractors produce disposable queryable views. |
-| `FIG-SIM-... / FIG-BUILDER-PIPELINE` | The simulation's own builder agents, building instrumentation on demand whenever a run reveals a gap. |
-| `FIG-HWLOOP-1` | The on-device build → flash → run → observe → report loop, with the capacitor watchdog recovering a wedged device. |
-| `FIG-MEMORY-GRAPH` | Memory shaped as a knowledge graph, so recall of related facts (registers, timing domains, bugs) becomes a traversal. |
-| `FIG-HWSIDE-STACK` | The on-device tooling stack: firmware build/flash, control, power/recover, observe, and bus/logic analysis. |
-| `FIG-PCSIDE-STACK` | The PC-side tooling stack: information intake, memory graph, local model fleet, build/orchestrate, simulate, extract, docs. |
 
 ---
 
